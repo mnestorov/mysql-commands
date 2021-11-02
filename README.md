@@ -2,6 +2,15 @@
 
 MySQL/MariaDB command reference.
 
+- [Show all DB users](#show-all-db-users)
+- [Create new DB user](#create-new-db-user)
+- [Change the name of DB user](#change-the-name-of-db-user)
+- [Grant privileges on user](#grant-privileges-on-user)
+- [Update DB permissions or privilages](#update-db-permissions-or-privilages)
+- [Change a user password from MySQL prompt](#change-a-user-password-from-mysql-prompt)
+- [Change a users password from unix shell](#change-a-users-password-from-unix-shell)
+- [Delete DB user](#delete-db-user)
+
 ## Users
 
 ### Show all DB users
@@ -42,7 +51,7 @@ GRANT ALL PRIVILEGES ON database_name.* TO 'user'@'localhost' IDENTIFIED BY 'pas
 GRANT ALL PRIVILEGES ON database_name.* TO 'user'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
 ```
 
-### Update DB permissions/privilages
+### Update DB permissions or privilages
 
 ```sql
 FLUSH PRIVILEGES;

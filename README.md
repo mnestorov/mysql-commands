@@ -2,36 +2,63 @@
 
 MySQL/MariaDB command reference.
 
-- [Show all DB users](#show-all-db-users)
-- [Create new DB user](#create-new-db-user)
-- [Change the name of DB user](#change-the-name-of-db-user)
-- [Grant privileges on user](#grant-privileges-on-user)
-- [Update DB permissions or privilages](#update-db-permissions-or-privilages)
-- [Change a user password from MySQL prompt](#change-a-user-password-from-mysql-prompt)
-- [Change a users password from unix shell](#change-a-users-password-from-unix-shell)
-- [Delete DB user](#delete-db-user)
+**USERS**
 
-## Users
+- [Show All Database Users](#show-all-database-users)
+- [Create New Database User](#create-new-database-user)
+- [Change The Name Of A Single Database User](#change-the-name-of-a-single-database-user)
+- [Grant Privileges On A Single User](#grant-privileges-on-a-single-user)
+- [Update Database Permissions Or Privilages](#update-database-permissions-or-privilages)
+- [Change A User Password From MySQL Prompt](#change-a-user-password-from-mysql-prompt)
+- [Change A Users Password From Unix Shell](#change-a-users-password-from-unix-shell)
+- [Delete A Single DB user](#delete-a-single-db-user)
 
-### Show all DB users
+**DATABASES**
+
+- [Create A Database On The SQL Server](#create-a-database-on-the-sql-server)
+- [List All Databases On The SQL Server](#list-all-databases-on-the-sql-server)
+- [Switch To A Database](#switch-to-a-database)
+- [List All The Tables In The Database](#list-all-the-tables-in-the-database)
+- [Delete A Single Database](#delete-a-single-database)
+- [Delete A Single Database Table](#delete-a-single-database-table)
+- [Show All Data In A Database Table](#show-all-data-in-a-database-table)
+
+**BACKUP**
+
+- [How To Backup And Restore MariaDB Databases Using The mysqldump Utility](#how-to-backup-and-restore-mariadb-databases-using-the-mysqldump-utility)
+- [Backing Up A Single Database](#backing-up-a-single-database)
+- [Backing Up Multiple Databases](#backing-up-multiple-databases)
+- [Backing Up All Databases](#backing-up-all-databases)
+- [Back Up MariaDB Database With Compression](#back-up-mariadb-database-with-compression)
+
+**RESTORE**
+
+- [Restore A Single Database](#restore-a-single-database)
+- [Restore Multiple Databases](#restore-multiple-databases)
+- [Restore All Databases](#restore-all-databases)
+
+
+## USERS
+
+### Show All Database Users
 
 ```sql
 SELECT * FROM mysql.user;
 ```
 
-### Create new DB user
+### Create New Database User
 
 ```sql
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
 ```
 
-### Change the name of DB user
+### Change The Name Of A Single Database User
 
 ```sql
 RENAME USER 'user'@'localhost' TO 'newuser'@'localhost';
 ```
 
-### Grant privileges on user
+### Grant Privileges On A Single User
 
 **Option 1**
 
@@ -51,70 +78,125 @@ GRANT ALL PRIVILEGES ON database_name.* TO 'user'@'localhost' IDENTIFIED BY 'pas
 GRANT ALL PRIVILEGES ON database_name.* TO 'user'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
 ```
 
-### Update DB permissions or privilages
+### Update Database Permissions Or Privilages
 
 ```sql
 FLUSH PRIVILEGES;
 ```
 
-### Change a user password from MySQL prompt
+### Change A User Password From MySQL Prompt
 
 ```sql
 SET PASSWORD FOR 'user'@'localhost' = PASSWORD('password');
 ```
 
-### Change a users password from unix shell
+### Change A Users Password From Unix Shell
 
 ```bash
 [mysql dir]/bin/mysqladmin -u root -h hostname.blah.org -p password 'newpassword'
 ```
 
-### Delete DB user
+### Delete A Single DB User
 
 ```sql
 DROP USER 'user'@'localhost';
 ```
 
-## Database
+## DATABASES
 
-### Create a database on the sql server
-
-```sql
-create database [database_name];
-```
-
-### List all databases on the sql server
+### Create A Database On The SQL Server
 
 ```sql
-show databases;
+CREATE DATABASE [database_name];
 ```
 
-### Switch to a database
+### List All Databases On The SQL Server
 
 ```sql
-use [database_name];
+SHOW DATABASES;
 ```
 
-### List all the tables in the DB
+### Switch To A Database
 
 ```sql
-show tables;
+USE [database_name];
 ```
 
-### Delete DB
+### List All The Tables In The Database
 
 ```sql
-drop database [database_name];
+SHOW TABLES;
 ```
 
-### Delete DB table
+### Delete A Single Database
 
 ```sql
-drop table [table_name];
+DROP DATABASE [database_name];
 ```
 
-### Show all data in a DB table
+### Delete A Single Database Table
+
+```sql
+DROP TABLE [table_name];
+```
+
+### Show All Data In A Database Table
 
 ```sql
 SELECT * FROM [table_name];
+```
+
+## How To Backup And Restore MariaDB Databases Using The *mysqldump* Utility
+
+**mysqldump** - is the utility that we will use to back up our MariaDB database. It’s designed specifically for backup purposes. The cool thing about mysqldump is that you don’t need to stop MariaDB service to make a backup. It can be used to back up a single database, multiple databases, and all databases. By default, it will create a dump file that contains all the statements needed to re-create the database.
+
+### Backing Up A Single Database
+
+```bash
+mysqldump -u root -p database_name > database_name.sql
+```
+
+### Backing Up Multiple Databases
+
+```bash
+mysqldump -u root -p --databases db_name1 db_name2 ...  > multi_database.sql
+```
+
+### Backing Up All Databases
+
+```bash
+mysqldump -u root -p --all-databases > all-databases.sql
+```
+
+### Back Up MariaDB Database With Compression
+
+```bash
+mysqldump -u root -p database_name | gzip > database_name.sql.gz
+```
+
+### Restore A Single Database
+
+**Option 1 - From unix shell**
+
+```bash
+mysql -u root -p database_name < database_name.sql
+```
+
+**Option 2 - From within mysql**
+
+```sql
+USE [database_name];
+SOURCE backup-file.sql;
+```
+
+### Restore Multiple Databases
+
+```bash
+mysql -u root -p < multi-databases.sql
+```
+
+### Restore All Databases
+
+```bash
+mysql -u root -p < all-databases.sql
 ```

@@ -2,6 +2,10 @@
 
 MySQL/MariaDB command reference.
 
+**PASSWORD POLICY**
+
+- [Change MySQL Password Policy Level](#change-mysql-password-policy-level)
+
 **USERS**
 
 - [Show All Database Users](#show-all-database-users)
@@ -37,6 +41,23 @@ MySQL/MariaDB command reference.
 - [Restore Multiple Databases](#restore-multiple-databases)
 - [Restore All Databases](#restore-all-databases)
 
+## PASSWORD POLICY
+
+### Change MySQL Password Policy Level
+
+To change the default password policy level, we can change the settings at runtime using the command line or in the config file `my.cnf/mysqld.cnf` permanently.
+
+Login to MySQL command prompt and execute below query to view current settings of validate_password.
+
+```sql
+SHOW VARIABLES LIKE 'validate_password%';
+```
+
+The default level is MEDIUM, we can change it to LOW by using the below query. The LOW level required only passwords length to min 8 characters.
+
+```sql
+SET GLOBAL validate_password.policy=LOW;
+```
 
 ## USERS
 

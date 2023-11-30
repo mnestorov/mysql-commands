@@ -1,10 +1,10 @@
-# MySQL/MariaDB
+# MySQL / MariaDB Commands
 
 ![Licence](https://img.shields.io/badge/Unlicense-red)
 
 ## Overview
 
-MySQL/MariaDB command reference.
+This is a commands reference for the MySQL and MariaDB database engines.
 
 ## Password Policy
 

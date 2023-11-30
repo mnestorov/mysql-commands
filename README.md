@@ -4,7 +4,7 @@
 
 ## Overview
 
-This is a commands reference for the MySQL and MariaDB database engines.
+This is a command reference for the MySQL and MariaDB database engines.
 
 ## Password Policy
 

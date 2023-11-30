@@ -1,12 +1,16 @@
 # MySQL/MariaDB
 
+![Licence](https://img.shields.io/badge/Unlicense-red)
+
+## Overview
+
 MySQL/MariaDB command reference.
 
-**PASSWORD POLICY**
+## Password Policy
 
 - [Change MySQL Password Policy Level](#change-mysql-password-policy-level)
 
-**USERS**
+## Users
 
 - [Show All Database Users](#show-all-database-users)
 - [Create New Database User](#create-new-database-user)
@@ -17,7 +21,7 @@ MySQL/MariaDB command reference.
 - [Change A Users Password From Unix Shell](#change-a-users-password-from-unix-shell)
 - [Delete A Single DB user](#delete-a-single-db-user)
 
-**DATABASES**
+## Databases
 
 - [Create A Database On The SQL Server](#create-a-database-on-the-sql-server)
 - [List All Databases On The SQL Server](#list-all-databases-on-the-sql-server)
@@ -27,21 +31,20 @@ MySQL/MariaDB command reference.
 - [Delete A Single Database Table](#delete-a-single-database-table)
 - [Show All Data In A Database Table](#show-all-data-in-a-database-table)
 
-**BACKUP**
+## Backup
 
-- [How To Backup And Restore MariaDB Databases Using The mysqldump Utility](#how-to-backup-and-restore-mariadb-databases-using-the-mysqldump-utility)
 - [Backing Up A Single Database](#backing-up-a-single-database)
 - [Backing Up Multiple Databases](#backing-up-multiple-databases)
 - [Backing Up All Databases](#backing-up-all-databases)
 - [Back Up MariaDB Database With Compression](#back-up-mariadb-database-with-compression)
 
-**RESTORE**
+## Restore
 
 - [Restore A Single Database](#restore-a-single-database)
 - [Restore Multiple Databases](#restore-multiple-databases)
 - [Restore All Databases](#restore-all-databases)
 
-## PASSWORD POLICY
+## Password Policy
 
 ### Change MySQL Password Policy Level
 
@@ -59,7 +62,7 @@ The default level is MEDIUM, we can change it to LOW by using the below query. T
 SET GLOBAL validate_password.policy=LOW;
 ```
 
-## USERS
+## Users
 
 ### Show All Database Users
 
@@ -123,7 +126,7 @@ SET PASSWORD FOR 'user'@'localhost' = PASSWORD('password');
 DROP USER 'user'@'localhost';
 ```
 
-## DATABASES
+## Databases
 
 ### Create A Database On The SQL Server
 
@@ -167,33 +170,37 @@ DROP TABLE [table_name];
 SELECT * FROM [table_name];
 ```
 
-## How To Backup And Restore MariaDB Databases Using The *mysqldump* Utility
+## Backup
+
+**Backup And Restore MariaDB Databases Using The `mysqldump` Utility**
 
 **mysqldump** - is the utility that we will use to back up our MariaDB database. It’s designed specifically for backup purposes. The cool thing about mysqldump is that you don’t need to stop MariaDB service to make a backup. It can be used to back up a single database, multiple databases, and all databases. By default, it will create a dump file that contains all the statements needed to re-create the database.
 
-### Backing Up A Single Database
+### Backup A Single Database
 
 ```bash
 mysqldump -u root -p database_name > database_name.sql
 ```
 
-### Backing Up Multiple Databases
+### Backup Multiple Databases
 
 ```bash
 mysqldump -u root -p --databases db_name1 db_name2 ...  > multi_database.sql
 ```
 
-### Backing Up All Databases
+### Backup All Databases
 
 ```bash
 mysqldump -u root -p --all-databases > all-databases.sql
 ```
 
-### Back Up MariaDB Database With Compression
+### Backup MariaDB Database With Compression
 
 ```bash
 mysqldump -u root -p database_name | gzip > database_name.sql.gz
 ```
+
+## Restore
 
 ### Restore A Single Database
 
@@ -221,3 +228,9 @@ mysql -u root -p < multi-databases.sql
 ```bash
 mysql -u root -p < all-databases.sql
 ```
+
+---
+
+## License
+
+This repository is unlicense[d], so feel free to fork.
